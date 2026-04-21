@@ -567,14 +567,17 @@ h3 { font-size: clamp(1.4rem, 2.2vw, 1.9rem); line-height: 1.15; }
 .gallery-item {
   break-inside: avoid;
   margin: 0 0 4px;
-  border-radius: 6px;
+  border-radius: var(--radius);
   overflow: hidden;
   background: transparent;
   transition: transform .6s var(--ease), box-shadow .4s var(--ease);
   cursor: zoom-in;
   line-height: 0;
 }
-.gallery-item picture, .gallery-item img { display: block; width: 100%; }
+.gallery-item picture, .gallery-item img {
+  display: block; width: 100%;
+  border-radius: var(--radius);
+}
 .gallery-item.is-collapsed { display: none; }
 .gallery-more-wrap {
   width: min(var(--container), 94%); margin: 2.5rem auto 0;
