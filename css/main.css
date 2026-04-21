@@ -124,23 +124,26 @@ h3 { font-size: clamp(1.4rem, 2.2vw, 1.9rem); line-height: 1.15; }
   color: var(--brown);
   box-shadow: 0 1px 0 rgba(74,50,31,.08);
 }
-.nav-brand { display: inline-flex; align-items: center; gap: .7rem; line-height: 1; }
-.nav-mark { width: 36px; height: 36px; display: block; filter: drop-shadow(0 1px 2px rgba(0,0,0,.2)); transition: filter .3s; }
+.nav-brand { display: inline-flex; align-items: center; gap: .75rem; line-height: 1; }
+.nav-mark { width: 38px; height: 38px; display: block; filter: drop-shadow(0 1px 2px rgba(0,0,0,.2)); transition: filter .3s; flex-shrink: 0; }
 .nav.scrolled .nav-mark { content: url('images/brand/logo-icon-terracotta.png'); filter: none; }
 .nav-wordmark {
   font-family: var(--font-script);
-  font-size: 1.55rem;
+  font-size: 1.6rem;
   font-weight: 600;
   letter-spacing: .01em;
   line-height: 1;
   display: inline-flex; align-items: center;
-  padding-top: .18em; /* optical baseline alignment with icon */
+  gap: .18em;
+  position: relative;
+  top: 2px; /* optical alignment with icon center */
 }
 .nav-wordmark .amp {
   font-family: var(--font-serif); font-style: italic;
-  font-size: .82em; margin: 0 .15em;
+  font-size: .78em;
   color: var(--terra-soft);
-  padding-bottom: .1em;
+  line-height: 1;
+  position: relative; top: -0.08em;
 }
 .nav.scrolled .nav-wordmark .amp { color: var(--terra-deep); }
 
@@ -355,8 +358,8 @@ h3 { font-size: clamp(1.4rem, 2.2vw, 1.9rem); line-height: 1.15; }
   isolation: isolate;
   text-align: center;
 }
-.transformation-bg { position: absolute; inset: -15% 0; z-index: -1; will-change: transform; }
-.transformation-bg img { width: 100%; height: 100%; object-fit: cover; object-position: center 30%; }
+.transformation-bg { position: absolute; inset: -30% 0; z-index: -1; will-change: transform; }
+.transformation-bg img { width: 100%; height: 100%; object-fit: cover; object-position: center bottom; }
 .transformation-bg::after {
   content: ""; position: absolute; inset: 0;
   background:
@@ -544,19 +547,21 @@ h3 { font-size: clamp(1.4rem, 2.2vw, 1.9rem); line-height: 1.15; }
 .gallery-grid {
   width: min(var(--container), 94%); margin: 0 auto;
   column-count: 3;
-  column-gap: 6px;
+  column-gap: 4px;
 }
 @media (max-width: 900px) { .gallery-grid { column-count: 2; } }
 @media (max-width: 520px)  { .gallery-grid { column-count: 1; } }
 .gallery-item {
   break-inside: avoid;
-  margin-bottom: 6px;
-  border-radius: 8px;
+  margin: 0 0 4px;
+  border-radius: 6px;
   overflow: hidden;
-  background: var(--sand-deep);
+  background: transparent;
   transition: transform .6s var(--ease), box-shadow .4s var(--ease);
   cursor: zoom-in;
+  line-height: 0;
 }
+.gallery-item picture, .gallery-item img { display: block; width: 100%; }
 .gallery-item.is-collapsed { display: none; }
 .gallery-more-wrap {
   width: min(var(--container), 94%); margin: 2.5rem auto 0;
@@ -588,15 +593,19 @@ h3 { font-size: clamp(1.4rem, 2.2vw, 1.9rem); line-height: 1.15; }
 .marquee {
   position: relative;
   width: 100%;
-  overflow: hidden;
+  padding: 2rem 0;
+  overflow-x: hidden;
+  overflow-y: visible;
   mask-image: linear-gradient(90deg, transparent 0, #000 6%, #000 94%, transparent 100%);
   -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 6%, #000 94%, transparent 100%);
 }
 .marquee-track {
   display: flex;
+  align-items: flex-start;
   gap: 2rem;
   width: max-content;
   animation: marqueeScroll 85s linear infinite;
+  padding: 1rem 0;
 }
 .marquee:hover .marquee-track { animation-play-state: paused; }
 
@@ -609,19 +618,29 @@ h3 { font-size: clamp(1.4rem, 2.2vw, 1.9rem); line-height: 1.15; }
   flex: 0 0 auto;
   width: min(420px, 82vw);
   background: var(--sand);
-  padding: 2.2rem 2.2rem 1.9rem;
+  padding: 2.5rem 2.2rem 1.9rem;
   border-radius: var(--radius);
-  margin: 0;
+  margin: 2.5rem 0 1rem; /* room for overflowing quote */
   position: relative;
   align-self: stretch;
   display: flex; flex-direction: column; justify-content: space-between;
   box-shadow: 0 12px 40px -20px rgba(74,50,31,.3);
 }
+/* Alternate vertical position → quinconce (staggered) feel */
+.marquee-track > .testi:nth-child(odd)  { margin-top: 0;      margin-bottom: 3.5rem; }
+.marquee-track > .testi:nth-child(even) { margin-top: 3.5rem; margin-bottom: 0; }
+
 .testi::before {
   content: '“';
-  position: absolute; top: -.2em; left: .18em;
-  font-family: var(--font-serif); font-size: 7rem; line-height: 1;
-  color: var(--terra); opacity: .22;
+  position: absolute;
+  top: -.55em; left: -0.05em;
+  font-family: var(--font-serif); font-weight: 600;
+  font-size: 11rem; line-height: 1;
+  color: var(--terra);
+  opacity: .95;
+  z-index: 2;
+  pointer-events: none;
+  text-shadow: 0 6px 30px rgba(193,135,73,.35);
 }
 .testi blockquote { margin: 0 0 1.2rem; padding: 0; position: relative; z-index: 1; }
 .testi blockquote p { margin: 0 0 .9em; font-family: var(--font-serif); font-size: 1.05rem; line-height: 1.55; color: var(--brown); font-style: italic; }
@@ -633,18 +652,29 @@ h3 { font-size: clamp(1.4rem, 2.2vw, 1.9rem); line-height: 1.15; }
 .contact {
   position: relative;
   padding: clamp(7rem, 14vw, 12rem) 0;
-  background: linear-gradient(160deg, var(--brown) 0%, #2C1F12 50%, var(--terra-deep) 100%);
+  background: var(--ink);
   color: var(--cream);
   text-align: center;
   overflow: hidden;
   isolation: isolate;
 }
-.contact-bg {
-  position: absolute; inset: 0; z-index: -1;
-  display: flex; align-items: center; justify-content: center;
-  opacity: .09;
+.contact-photo {
+  position: absolute; inset: -20% 0; z-index: -2;
+  will-change: transform;
 }
-.contact-bg img { width: 90vmin; max-width: 900px; }
+.contact-photo picture,
+.contact-photo img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  object-position: center 25%;
+  display: block;
+}
+.contact-overlay {
+  position: absolute; inset: 0; z-index: -1;
+  background:
+    radial-gradient(ellipse 80% 70% at 50% 45%, rgba(26,20,16,.55) 0%, rgba(26,20,16,.8) 70%, rgba(26,20,16,.95) 100%),
+    linear-gradient(180deg, rgba(26,20,16,.45) 0%, rgba(74,50,31,.5) 50%, rgba(26,20,16,.85) 100%);
+}
 .contact-inner h2 { color: var(--cream); font-size: clamp(2.5rem, 5vw, 4rem); }
 .contact-lede { font-size: 1.2rem; color: rgba(251,245,235,.88); margin: 0 0 2.2rem; }
 .contact-actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-bottom: 3rem; }
