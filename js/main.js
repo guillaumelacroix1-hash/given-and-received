@@ -164,7 +164,7 @@ async function buildGallery() {
   const grid = document.getElementById('galleryGrid');
   if (!grid) return;
   try {
-    const res = await fetch('/images/manifest.json');
+    const res = await fetch('images/manifest.json');
     const manifest = await res.json();
     // Exclude a few shots already used heavily in heroes/sections to avoid duplication feel? No — user wants all.
     const items = manifest;
@@ -172,10 +172,10 @@ async function buildGallery() {
     const shuffled = [...items].sort(() => Math.random() - 0.5);
 
     const html = shuffled.map((p, i) => `
-      <figure class="gallery-item" data-reveal data-full="/images/photos/${p.baseName}.jpg">
+      <figure class="gallery-item" data-reveal data-full="images/photos/${p.baseName}.jpg">
         <picture>
-          <source type="image/webp" srcset="/images/thumbs/${p.baseName}.webp" />
-          <img src="/images/thumbs/${p.baseName}.jpg"
+          <source type="image/webp" srcset="images/thumbs/${p.baseName}.webp" />
+          <img src="images/thumbs/${p.baseName}.jpg"
                alt="Given and Received — image ${i+1}"
                loading="lazy" decoding="async" />
         </picture>

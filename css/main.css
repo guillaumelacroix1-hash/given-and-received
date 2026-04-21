@@ -116,7 +116,7 @@ h3 { font-size: clamp(1.4rem, 2.2vw, 1.9rem); line-height: 1.15; }
 }
 .nav-brand { display: inline-flex; align-items: center; gap: .6rem; }
 .nav-mark { width: 34px; height: 34px; filter: drop-shadow(0 1px 2px rgba(0,0,0,.2)); transition: filter .3s; }
-.nav.scrolled .nav-mark { content: url('/images/brand/logo-icon-terracotta.png'); filter: none; }
+.nav.scrolled .nav-mark { content: url('images/brand/logo-icon-terracotta.png'); filter: none; }
 .nav-wordmark {
   font-family: var(--font-script);
   font-size: 1.5rem;
