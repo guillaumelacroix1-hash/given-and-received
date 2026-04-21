@@ -125,8 +125,21 @@ h3 { font-size: clamp(1.4rem, 2.2vw, 1.9rem); line-height: 1.15; }
   box-shadow: 0 1px 0 rgba(74,50,31,.08);
 }
 .nav-brand { display: inline-flex; align-items: center; gap: .75rem; line-height: 1; }
-.nav-mark { width: 38px; height: 38px; display: block; filter: drop-shadow(0 1px 2px rgba(0,0,0,.2)); transition: filter .3s; flex-shrink: 0; }
-.nav.scrolled .nav-mark { content: url('images/brand/logo-icon-terracotta.png'); filter: none; }
+.nav-mark {
+  position: relative;
+  width: 38px; height: 38px;
+  display: inline-block; flex-shrink: 0;
+}
+.nav-mark img {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  display: block;
+  transition: opacity .3s var(--ease);
+}
+.nav-mark-light { opacity: 1; filter: drop-shadow(0 1px 2px rgba(0,0,0,.25)); }
+.nav-mark-dark  { opacity: 0; }
+.nav.scrolled .nav-mark-light { opacity: 0; }
+.nav.scrolled .nav-mark-dark  { opacity: 1; }
 .nav-wordmark {
   font-family: var(--font-script);
   font-size: 1.6rem;
