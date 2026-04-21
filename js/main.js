@@ -29,7 +29,8 @@ navLinks?.querySelectorAll('a').forEach(a =>
 
 
 // --- Parallax on [data-speed] elements (rAF-throttled) ---
-const parallaxEls = [...document.querySelectorAll('[data-speed]')];
+// Supports: data-speed (translateY), data-rotate (deg), data-scale (scale delta)
+const parallaxEls = [...document.querySelectorAll('[data-speed], [data-rotate], [data-scale]')];
 let parallaxTicking = false;
 
 function applyParallax() {
@@ -37,10 +38,14 @@ function applyParallax() {
   parallaxEls.forEach(el => {
     const rect = el.getBoundingClientRect();
     const center = rect.top + rect.height / 2;
-    const progress = (center - vh / 2) / vh;
-    const speed = parseFloat(el.dataset.speed || 0);
+    const progress = (center - vh / 2) / vh;        // −0.5 → +0.5 range while in view
+    const speed  = parseFloat(el.dataset.speed  || 0);
+    const rot    = parseFloat(el.dataset.rotate || 0);
+    const scaleD = parseFloat(el.dataset.scale  || 0);
     const ty = -progress * speed * vh;
-    el.style.transform = `translate3d(0, ${ty.toFixed(2)}px, 0)`;
+    const rz = -progress * rot;                     // deg
+    const sc = 1 + (-progress * scaleD);            // base 1, +/- scaleD
+    el.style.transform = `translate3d(0, ${ty.toFixed(2)}px, 0) rotate(${rz.toFixed(2)}deg) scale(${sc.toFixed(3)})`;
   });
   parallaxTicking = false;
 }
