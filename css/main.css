@@ -40,6 +40,16 @@ body {
 
 img { max-width: 100%; display: block; height: auto; }
 picture { display: block; }
+
+/* Fixed-size media containers — picture must fill so img height:100% works */
+.hero-photo picture,
+.about-photo picture,
+.session-img picture,
+.event-row-media picture,
+.transformation-bg picture {
+  width: 100%;
+  height: 100%;
+}
 a { color: inherit; text-decoration: none; }
 em { font-style: italic; }
 
